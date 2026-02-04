@@ -1,0 +1,45 @@
+name: Daily Motivation Bot
+
+# TRIGGER: When should this workflow run?
+on:
+  schedule:
+    # Cron Format: 'Minute Hour * * *' (UTC Time)
+    # 00:00 UTC = 07:00 AM WIB (Western Indonesia Time)
+    # If you want 08:00 AM WIB, change to '0 1 * * *'
+    # - cron: '0 0 * * *'
+    - cron: '*/5 * * * *'
+  
+  # Allows you to run this workflow manually from the Actions tab (for testing)
+  workflow_dispatch:
+
+# JOBS: What tasks to execute?
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest # Uses a standard Ubuntu runner provided by GitHub
+    
+    steps:
+      # 1. Checkout repository code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        
+      # 2. Set up Python environment
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' # Ensure this matches your local Python version
+          
+      # 3. Install required libraries
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install prefect langchain-google-genai requests python-dotenv
+        
+      # 4. RUN THE SCRIPT
+      # We inject the secrets (API Keys) securely into the environment here
+      - name: Run Python Script
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        # Runs your specific file
+        run: python bot_prefect.py
