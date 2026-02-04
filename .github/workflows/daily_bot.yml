@@ -6,8 +6,8 @@ on:
     # Cron Format: 'Minute Hour * * *' (UTC Time)
     # 00:00 UTC = 07:00 AM WIB (Western Indonesia Time)
     # If you want 08:00 AM WIB, change to '0 1 * * *'
-    # - cron: '0 0 * * *'
-    - cron: '*/5 * * * *'
+    - cron: '0 0 * * *'
+    # - cron: '*/5 * * * *'
   
   # Allows you to run this workflow manually from the Actions tab (for testing)
   workflow_dispatch:
