@@ -80,7 +80,6 @@ You should see **Prefect** orchestrating the tasks in real-time:
 10:00:02.789 | INFO    | Task run 'Generate Quote' - Finished in state Completed()
 10:00:03.112 | INFO    | Task run 'Send to Telegram' - ✅ Success: Message sent to Telegram!
 10:00:03.223 | INFO    | Flow run 'Daily Mentor Flow' - Finished in state Completed()
-
 ```
 
 ## 🚀 Deployment Options
