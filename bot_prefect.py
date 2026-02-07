@@ -43,9 +43,21 @@ def generate_quote():
         return ai_msg
 
     except Exception as e:
-        error_msg = f"❌ Gemini Error: {e}"
-        print(error_msg)
-        return error_msg
+        # SAFE ERROR HANDLING
+        # We process the error string but do not print 'e' directly
+        error_str = str(e).lower()
+        
+        if "401" in error_str or "api_key" in error_str:
+            safe_msg = "❌ Gemini Auth Error: Invalid API Key."
+        elif "429" in error_str or "quota" in error_str:
+            safe_msg = "⏳ Gemini Quota Error: Rate limit exceeded."
+        elif "connection" in error_str:
+            safe_msg = "❌ Gemini Network Error: Failed to connect."
+        else:
+            safe_msg = "❌ Gemini Internal Error (Details hidden)."
+
+        print(safe_msg)
+        return safe_msg
 
 @task(name="Send to Telegram")
 def to_telegram(msg):
@@ -77,7 +89,18 @@ def to_telegram(msg):
             print(f"📄 Error Details: {response.text}")
             
     except Exception as e:
-        print(f"❌ Network Error: Failed to send to Telegram. Reason: {e}")
+        # SAFE ERROR HANDLING
+        # Preventing the 'url' variable (containing the token) from leaking in the logs.
+        error_str = str(e).lower()
+
+        if "connection" in error_str or "dns" in error_str:
+            print("❌ Network Error: Failed to connect to Telegram API.")
+        elif "timeout" in error_str:
+            print("⏳ Timeout Error: Telegram API did not respond.")
+        elif "ssl" in error_str:
+            print("🔒 SSL Error: Certificate verification failed.")
+        else:
+            print("❌ Telegram Send Failed: Unknown error occurred.")
 
 @flow(name="Daily Mentor Flow", log_prints=True)
 def main_flow():
