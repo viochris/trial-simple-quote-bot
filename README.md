@@ -44,30 +44,23 @@ Create a `.env` file in the root directory:
 GOOGLE_API_KEY=your_google_gemini_api_key
 TELEGRAM_TOKEN=your_telegram_bot_token
 TELEGRAM_CHAT_ID=your_target_chat_id
-
 ```
 
 ## 📦 Local Installation
-
 1. **Clone the Repository**
 ```bash
 git clone https://github.com/viochris/trial-simple-quote-bot.git
 cd trial-simple-quote-bot
-
 ```
 
 2. **Install Dependencies**
-
 ```bash
 pip install prefect langchain-google-genai requests python-dotenv
-
 ```
 
 3. **Run the Automation**
-
 ```bash
 python bot_prefect.PY
-
 ```
 
 ### 🖥️ Expected Output
