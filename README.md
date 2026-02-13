@@ -10,6 +10,8 @@
 
 Orchestrated by **Prefect**, this bot functions as your personal AI mentor. It leverages **Google's Gemini 2.5 Flash** model via LangChain to generate unique, punchy motivational quotes specifically tailored for programmers, and instantly broadcasts them to a **Telegram Channel**. It is built for reliability with automatic retries and modular task execution.
 
+> **💡 Alternative Version:** Prefer using the official library wrapper? Check out the **[PTB Variant](https://github.com/viochris/daily-quote-bot-ptb)**. It uses `python-telegram-bot` instead of raw HTTP requests (useful if you plan to expand features later).
+
 ## ✨ Key Features
 
 ### 🧠 Generative AI Integration
